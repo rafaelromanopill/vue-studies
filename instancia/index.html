@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Exercicio 1 Vue js</title>
+</head>
+<body>
+  <div id="app">
+    {{mensagem}}
+  </div>
+  <div id="app1">
+    {{ferramenta}}
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        mensagem: "Olá mundo do Vue"
+      },
+    });
+    const vm2= new Vue({
+      el: "#app1",
+      data: {
+        ferramenta: "Martelo"
+      },
+    });
+  </script>
+</body>
+</html>

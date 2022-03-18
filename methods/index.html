@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../vue.js"></script>
+    <title>Methods</title>
+  </head>
+  <body>
+    <div id="app">
+      {{total}}
+      <button @click="incrementar">Incrementar</button>
+      <button @click="diminuir">Diminuir</button>
+      <br />
+      <p>{{compra}}</p>
+      <button @click="alterarCompra('Monitor 29 polegadas')">
+        Alterar compra
+      </button>
+      <button value="1" @click="alterarInput">Ver evento</button>
+      <button @click="fetchCats">Realizar fetch</button>
+      <p v-if="catFacts">{{catFacts}}</p>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          total: 0,
+          count: 0,
+          compra: '',
+          inputValue: '',
+          catFacts: null,
+        },
+        methods: {
+          incrementar() {
+            this.total++;
+          },
+          diminuir() {
+            this.total--;
+          },
+          alterarCompra(instrumento) {
+            this.compra = instrumento;
+          },
+          alterarInput({ target }) {
+            console.log(target.value);
+            this.inputValue = target.value;
+          },
+          async fetchCats() {
+            const response = await fetch(
+              'https://cat-fact.herokuapp.com/facts'
+            );
+            const data = await response.json();
+            this.catFacts = data.map(({ text }) => text);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
