@@ -10,18 +10,61 @@
 <body>
   <div id="app">
     <p>{{total}}</p>
+    <ul>
+      <li v-for="carro in carros">
+        {{carro.marca}}
+        {{carro.cor}}
+        {{carrosAzuis}}
+      </li>
+    </ul>
+    <button @click="contador++">Clique</button>
+    <input type="text" placeholder="cep" maxlength="8" v-model="cep">
+    <h1>{{cep}}</h1>
   </div>
   <script>
     const vm = new Vue({
       el: "#app",
       data: {
+        contador: 0,
         preco: 59,
-        desconto: 10
+        desconto: 10,
+        endereco: "",
+        cep: "",
+        carros: [
+          {
+            marca: "VW",
+            cor: "Azul"
+          },
+          {
+            marca: "ford",
+            cor: "Preto",
+          },
+          {
+            marca: "pegeout",
+            cor: "prata"
+          }
+        ]
       },
       computed: {
         total() {
           return "R$ " + (this.preco - this.desconto)
+        },
+        carrosAzuis() {
+          return this.carros.filter((carro) => carro.cor === 'Azul');
         }
+      }, 
+        watch: {
+          contador(valorNovo, valorAntigo) {
+            console.log(valorNovo);
+            console.log(valorAntigo);
+          }, 
+         async cep(valor) {
+           if(valor.length === 8) {
+             const response = await fetch(`https://viacep.com.br/ws/${valor}/json/`);
+             const data = await response.json();
+              this.endereco = data;
+           } 
+          }
       }
     });
   </script>
